@@ -43,7 +43,9 @@ class Q {
 let music_lst = [
   'lofi/idwdta.mp3',
   'lofi/sprng.mp3',
-  'lofi/cranium_plvto.mp3'
+  'lofi/cranium_plvto.mp3',
+  'lofi/gameBoyInTraffic_jaedenCamstra.mp3',
+  'lofi/blackCoffee_edoLee.mp3'
 ]
 
 // define a queue to store our music
@@ -122,7 +124,7 @@ new Promise(function(resolve, reject) {
 
      setTimeout(function(){
        loop_music(music_struct_queue)
-     }, current_song.duration * 300)
+     }, current_song.duration * 100)
 
    }
 
@@ -149,12 +151,14 @@ new Promise(function(resolve, reject) {
 
       ss(socket).emit('audio-stream', stream, {song : 'song name'})
 
-      let filename = __dirname + '/music/lofi/idwdta.mp3'
+      // let filename = __dirname + '/music/lofi/idwdta.mp3'
+      // let filename = __dirname + '/music' + '/' + current_song_data.path
+      let filename = current_song_data.path
 
       fs.createReadStream(filename).pipe(stream)
 
       stream.on('finish', function(){
-        console.log('stream finished');
+        console.log('finished sending', filename);
       })
     })
   })
