@@ -5,6 +5,20 @@ let app = express()
 let server = require('http').Server(app)
 let io = require('socket.io')(server)
 
+/*
+ * globals
+ *
+ */
+const server_start_time = 0
+let current_song_data = {
+  title : null,
+  artist : null,
+  duration : null,
+  song_start_time : null,
+  path : null
+}
+
+
 class Q {
     constructor () { this.lst = [] }
     enqueue (elem) { this.lst.push(elem) }
@@ -28,7 +42,8 @@ class Q {
 // array of path's to mp3 files
 let music_lst = [
   'lofi/idwdta.mp3',
-  'lofi/sprng.mp3'
+  'lofi/sprng.mp3',
+  'lofi/cranium_plvto.mp3'
 ]
 
 // define a queue to store our music
@@ -42,13 +57,12 @@ let music_struct_lst = []
 // define a function/constructor
 let make_song_obj = function(song, artist, path, duration) {
   return {
-    song : song,
+    title : song,
     artist : artist,
     path : path,
     duration : duration
   }
 }
-
 
 // set the original length of the queue list and don't resolve the promise until the list that we're beuilding has reached that size
 let og_length = music_queue.lst.length
@@ -77,13 +91,59 @@ new Promise(function(resolve, reject) {
   // since we're inside of this code block, that means we've already generated all of our song durations asynchronously, now we have the data available inside of the music_struct_lst array of objects
   console.log(music_struct_lst);
 
+
+  // now that we have and array of song objects, make a queue out of them
+  let music_struct_queue = new Q()
+  music_struct_queue.load(music_struct_lst)
+
+  let set_current_song_globals = function(current_song) {
+    current_song_data.title = current_song.title
+    current_song_data.artist = current_song.artist
+    current_song_data.duration = current_song.duration
+    // TODO : set start time of the current song
+    // current_song_data.start_time : null,
+    current_song_data.path = current_song.path
+  }
+
+
+  /*
+   * now we have a list of music related structures
+   * let's initialize the server to dequeue a new song song each time the duration of the current song elapses, do this recursively to handle
+   */
+   let loop_music = function(music_struct_queue) {
+     if (music_struct_queue.lst.length == 0) {
+       console.log('queue has been exhausted');
+       return
+     }
+     let current_song = music_struct_queue.dequeue()
+     console.log('dequeued new song :', current_song);
+     set_current_song_globals(current_song)
+
+
+     setTimeout(function(){
+       loop_music(music_struct_queue)
+     }, current_song.duration * 300)
+
+   }
+
+
+
+   loop_music(music_struct_queue)
+
+
+
+
+
+
+
   // on connection with the client, first send them the data that represents all of the songs -> music_struct_lst
   io.on('connection', function(socket) {
     // socket.emit('music_lst', music_lst)
-    socket.emit('music_lst', music_struct_lst)
+    socket.emit('music_lst', current_song_data)
 
 
     socket.on('start_stream', function(data) {
+
 
       let stream = ss.createStream()
 
@@ -96,16 +156,7 @@ new Promise(function(resolve, reject) {
       stream.on('finish', function(){
         console.log('stream finished');
       })
-
     })
-
-
-    // ss(socket).on('stream-file', function(stream, data){
-    //   // stream.pipe(fs.createWriteStream(filename))
-    //   fs.createReadStream(filename).pipe(stream)
-    // })
-
-
   })
 })
 

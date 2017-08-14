@@ -1,0 +1,33 @@
+const server_start_time
+
+let current_song_title
+let current_song_artist
+let current_song_start_time
+let current_song_duration
+let current_song_path_to_file
+
+init_server() {
+    set_server_start_time()
+    populate_queue_of_music()
+
+    loop_music(music_queue)
+}
+
+
+/*
+ * define a function to loop through the music available and set necessary globals based on the current song
+ *
+ *
+ *
+ */
+let loop_music = function(music_queue) {
+  let curr_song = dequeue_song()
+  set_start_time_of_Current_song()
+  set_duration_of_current_song()
+
+
+  set_timeout(function(){
+    loop_music() // recurse
+  }, duration_of_current_song)
+
+}
