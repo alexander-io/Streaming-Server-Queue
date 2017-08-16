@@ -45,7 +45,8 @@ let music_lst = [
   'lofi/sprng.mp3',
   'lofi/cranium_plvto.mp3',
   'lofi/gameBoyInTraffic_jaedenCamstra.mp3',
-  'lofi/blackCoffee_edoLee.mp3'
+  'lofi/blackCoffee_edoLee.mp3',
+  'lofi/11pm_plvto.mp3'
 ]
 
 // define a queue to store our music
@@ -121,10 +122,12 @@ new Promise(function(resolve, reject) {
      console.log('dequeued new song :', current_song);
      set_current_song_globals(current_song)
 
+     // enqueue the song back to the tail
+     music_struct_queue.enqueue(current_song)
 
      setTimeout(function(){
        loop_music(music_struct_queue)
-     }, current_song.duration * 100)
+     }, current_song.duration * 1000)
 
    }
 

@@ -25,6 +25,10 @@
         <div class="row">
           <div class="col s12">
             <h1 id="title" class="center-align">socket io</h1>
+            <audio id="audio" autoplay="autoplay">
+              <source src="" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
           </div>
         </div>
       </div>
@@ -34,9 +38,14 @@
 
     <script>
       // var stream = ss.createStream()
-
+      let audio = document.getElementById('audio')
 
       var socket = io.connect('http://localhost:8080');
+
+      audio.addEventListener('ended', function(e) {
+        console.log('audio ended');
+        socket.emit('start_stream', { start : 'start' });
+      });
 
       socket.on('music_lst', function (data) {
         console.log('currently streaming :', data);
@@ -53,6 +62,9 @@
 
           stream.on('end', function() {
             console.log('stream finished', parts);
+            audio.src = (window.URL || window.webkidURL).createObjectURL(new Blob(parts))
+            audio.play()
+            // socket.emit('start_stream', { start : 'start' });
           })
         })
 
