@@ -2,22 +2,15 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>socket io</title>
+    <title>plvto.io</title>
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="materialize.min.js"></script>
     <link rel="stylesheet" href="materialize.min.css">
-    <!-- <link href="https://fonts.googleapis.com/css?family=Lobster+Two" rel="stylesheet"> -->
+
     <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaijaan|Caveat|Caveat+Brush|Chewy|Coming+Soon|Concert+One|Itim|Limelight|PT+Mono|Press+Start+2P" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <!-- <script type="text/javascript" src="socket.io.js"></script>
-    <script type="text/javascript" src="socket.io-stream.js"> -->
-
-    <!-- <script src="socket.io/socket.io.js "></script> -->
     <script src="socket.io-stream.js"></script>
-
-    </script>
-
 
   </head>
   <body id="body">
@@ -46,7 +39,8 @@
 
         <div class="row">
           <div class="col s12">
-            <h1 id="title" class="center-align">plvto<green>.</green>io</h1>
+            <h1 id="title" class="center-align">plvto<green><a href="https://github.com/alexander-io/Streaming-Server-Queue">.</a></green>io</h1>
+
             <audio id="audio" autoplay="autoplay">
               <source src="" type="audio/mpeg">
                 Your browser does not support the audio element.
@@ -103,21 +97,6 @@
       });
 
       socket.on('music_lst', function (data) {
-        // socket.on('current_song_data', function(data){
-        //   console.log('currently streaming :', data);
-        //   song_title.innerHTML = data.title
-        //   song_artist.innerHTML = data.artist
-        //   song_duration.innerHTML = data.duration
-        //   song_genre.innerHTML = data.genre
-        // })
-
-
-        // console.log('currently streaming :', data);
-        // song_title.innerHTML = data.title
-        // song_artist.innerHTML = data.artist
-        // song_duration.innerHTML = data.duration
-        // song_genre.innerHTML = data.genre
-
 
 
         socket.emit('start_stream', { start : 'start' });

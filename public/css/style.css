@@ -12,6 +12,17 @@ green {
   color:lime;
 }
 
+green a:link {
+  color: lime;
+}
+green a:visited {
+  color: lime;
+}
+green a:hover {
+  color: lime;
+}
+
+
 #inner {
   display:table;
   margin : 0 auto;

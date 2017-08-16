@@ -116,20 +116,25 @@ new Promise(function(resolve, reject) {
 
   /*
    * now we have a list of music related structures
-   * let's initialize the server to dequeue a new song song each time the duration of the current song elapses, do this recursively to handle
+   * let's initialize the server to dequeue a new song each time the duration of the current song elapses, do this recursively to handle requests
    */
    let loop_music = function(music_struct_queue) {
      if (music_struct_queue.lst.length == 0) {
        console.log('queue has been exhausted');
        return
+      //  TODO : include twilio, when the queue is exhausted we had a problem , so text operator's phone as an alert of a server error
      }
+
+     // get the next song from the queue and assign it to current_song
      let current_song = music_struct_queue.dequeue()
+
      console.log('dequeued new song :', current_song);
      set_current_song_globals(current_song)
 
      // enqueue the song back to the tail
      music_struct_queue.enqueue(current_song)
 
+    //  wait for the song's duration then call loop_music recursively
      setTimeout(function(){
        loop_music(music_struct_queue)
      }, current_song.duration * 1000)
@@ -137,13 +142,8 @@ new Promise(function(resolve, reject) {
    }
 
 
-
+   // start the recursive loop
    loop_music(music_struct_queue)
-
-
-
-
-
 
 
   // on connection with the client, first send them the data that represents all of the songs -> music_struct_lst
