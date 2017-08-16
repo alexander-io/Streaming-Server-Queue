@@ -4,5 +4,31 @@ body {
 
 #title {
   color : white;
-  font-family: 'Lobster Two', cursive;
+  font-size: 128px;
+  margin-top: 40%;
+}
+
+green {
+  color:lime;
+}
+
+#inner {
+  display:table;
+  margin : 0 auto;
+}
+.spinner-layer {
+  border-color: lime;
+}
+
+.reveal-list{
+  opacity: 0;
+  color: white;
+}
+
+#loader {
+  margin:33%;
+}
+
+#stagger-list {
+  text-align:center;
 }

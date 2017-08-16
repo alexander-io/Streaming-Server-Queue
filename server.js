@@ -15,7 +15,8 @@ let current_song_data = {
   artist : null,
   duration : null,
   song_start_time : null,
-  path : null
+  path : null,
+  genre : null
 }
 
 
@@ -44,10 +45,12 @@ let music_lst = [
   'lofi/idwdta.mp3',
   'lofi/sprng.mp3',
   'lofi/cranium_plvto.mp3',
-  'lofi/gameBoyInTraffic_jaedenCamstra.mp3',
-  'lofi/blackCoffee_edoLee.mp3',
+  // 'lofi/gameBoyInTraffic_jaedenCamstra.mp3',
+  // 'lofi/blackCoffee_edoLee.mp3',
   'lofi/11pm_plvto.mp3'
 ]
+
+
 
 // define a queue to store our music
 let music_queue = new Q()
@@ -58,12 +61,13 @@ music_queue.load(music_lst)
 let music_struct_lst = []
 
 // define a function/constructor
-let make_song_obj = function(song, artist, path, duration) {
+let make_song_obj = function(song, artist, path, duration, genre) {
   return {
     title : song,
     artist : artist,
     path : path,
-    duration : duration
+    duration : duration,
+    genre : genre
   }
 }
 
@@ -83,7 +87,7 @@ new Promise(function(resolve, reject) {
     // this function takes in a path to an mp3 song and asynchronously determines the duration of the song based on the path paramater
     mp3_duration(path_to_song, function(err, duration) {
       // push a new song object to the list of song objects, we'll end up sending this to the client
-      music_struct_lst.push(make_song_obj(song, 'artist', path_to_song, duration))
+      music_struct_lst.push(make_song_obj(song, 'artist', path_to_song, duration), 'genre')
       // if the queue is empty and the lenght of our list-builder has reached the original size of the queue, then we know we've dequeued the final song, so resolve the promise
       if (music_queue.isempty() && music_struct_lst.length == og_length) {
         resolve()
@@ -106,6 +110,7 @@ new Promise(function(resolve, reject) {
     // TODO : set start time of the current song
     // current_song_data.start_time : null,
     current_song_data.path = current_song.path
+    current_song_data.genre = current_song.genre
   }
 
 
@@ -144,15 +149,15 @@ new Promise(function(resolve, reject) {
   // on connection with the client, first send them the data that represents all of the songs -> music_struct_lst
   io.on('connection', function(socket) {
     // socket.emit('music_lst', music_lst)
+
     socket.emit('music_lst', current_song_data)
 
-
     socket.on('start_stream', function(data) {
-
+      // socket.emit('current_song_data', current_song_data)
 
       let stream = ss.createStream()
 
-      ss(socket).emit('audio-stream', stream, {song : 'song name'})
+      ss(socket).emit('audio-stream', stream, current_song_data)
 
       // let filename = __dirname + '/music/lofi/idwdta.mp3'
       // let filename = __dirname + '/music' + '/' + current_song_data.path

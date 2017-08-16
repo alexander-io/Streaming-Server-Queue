@@ -6,7 +6,8 @@
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="materialize.min.js"></script>
     <link rel="stylesheet" href="materialize.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Lobster+Two" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Lobster+Two" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaijaan|Caveat|Caveat+Brush|Chewy|Coming+Soon|Concert+One|Itim|Limelight|PT+Mono|Press+Start+2P" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
     <!-- <script type="text/javascript" src="socket.io.js"></script>
@@ -17,18 +18,64 @@
 
     </script>
 
+
   </head>
-  <body>
+  <body id="body">
+    <script type="text/javascript">
+    let font_families = [
+      "'Caveat Brush', cursive",
+      "'Chewy', cursive",
+      "'Baloo Bhaijaan', cursive",
+      "'Coming Soon', cursive",
+      "'Concert One', cursive",
+      "'PT Mono', monospace",
+      "'Caveat', cursive",
+      "'Limelight', cursive",
+      "'Press Start 2P', cursive",
+      "'Itim', cursive",
+    ]
+
+    let r = Math.floor(Math.random()*font_families.length)
+
+    let body = document.getElementById('body');
+    body.style.fontFamily = font_families[r]
+    </script>
 
     <div class="section">
       <div class="container">
+
         <div class="row">
           <div class="col s12">
-            <h1 id="title" class="center-align">socket io</h1>
+            <h1 id="title" class="center-align">plvto<green>.</green>io</h1>
             <audio id="audio" autoplay="autoplay">
               <source src="" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
+          </div>
+        </div>
+
+        <div class="" id="outer">
+          <div class="" id="inner">
+            <br><br>
+            <div id="loader"class="preloader-wrapper big ">
+              <div class="spinner-layer ">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div><div class="gap-patch">
+                  <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+            </div>
+
+
+            <ul id="stagger-list">
+              <li class="reveal-list" style="color:lime;"><h4 id="song-title">title</h4></li>
+              <li class="reveal-list"><h4 id="song-artist">artist</h4></li>
+              <li class="reveal-list"><h4 id="song-genre">genre</h4></li>
+              <li class="reveal-list"><h4 id="song-duration">duration</h4></li>
+            </ul>
           </div>
         </div>
       </div>
@@ -42,18 +89,46 @@
 
       var socket = io.connect('http://localhost:8080');
 
+      let loader = document.getElementById('loader')
+      // select headers to populate
+      let song_title = document.getElementById('song-title'), song_artist = document.getElementById('song-artist'), song_duration = document.getElementById('song-duration'), song_genre = document.getElementById('song-genre')
+
+
+
+
+
       audio.addEventListener('ended', function(e) {
         console.log('audio ended');
         socket.emit('start_stream', { start : 'start' });
       });
 
       socket.on('music_lst', function (data) {
-        console.log('currently streaming :', data);
+        // socket.on('current_song_data', function(data){
+        //   console.log('currently streaming :', data);
+        //   song_title.innerHTML = data.title
+        //   song_artist.innerHTML = data.artist
+        //   song_duration.innerHTML = data.duration
+        //   song_genre.innerHTML = data.genre
+        // })
+
+
+        // console.log('currently streaming :', data);
+        // song_title.innerHTML = data.title
+        // song_artist.innerHTML = data.artist
+        // song_duration.innerHTML = data.duration
+        // song_genre.innerHTML = data.genre
+
 
 
         socket.emit('start_stream', { start : 'start' });
 
         ss(socket).on('audio-stream', function(stream, data) {
+          console.log(data);
+          loader.className += ' active'
+          song_title.innerHTML = data.title
+          song_artist.innerHTML = data.artist
+          song_duration.innerHTML = data.duration
+          song_genre.innerHTML = 'data.genre'
           parts = []
 
           stream.on('data', (chunk) => {
@@ -64,6 +139,10 @@
             console.log('stream finished', parts);
             audio.src = (window.URL || window.webkidURL).createObjectURL(new Blob(parts))
             audio.play()
+
+            loader.classList.remove('active')
+
+            Materialize.showStaggeredList('#stagger-list')
             // socket.emit('start_stream', { start : 'start' });
           })
         })
