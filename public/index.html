@@ -87,8 +87,8 @@
       // var stream = ss.createStream()
       let audio = document.getElementById('audio')
 
-      var socket = io.connect('http://localhost:8080');
-
+      // var socket = io.connect('http://localhost:8080');
+      var socket = io.connect('http://www.plvto.io')
       let loader = document.getElementById('loader')
       // select headers to populate
       let song_title = document.getElementById('song-title'), song_artist = document.getElementById('song-artist'), song_duration = document.getElementById('song-duration'), song_genre = document.getElementById('song-genre')
