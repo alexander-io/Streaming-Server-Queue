@@ -52,11 +52,11 @@ let music_lst = [
   'lofi/iNeedYou_BOJET.mp3',
   'lofi/gameBoyInTraffic_jaedenCamstra.mp3',
   'lofi/blackCoffee_edoLee.mp3',
-  'lofi/11pm_plvto.mp3',
+  'lofi/11pm_plvto.mp3'
 
 ]
 
-
+// console.log('made music lst');
 
 // define a queue to store our music
 let music_queue = new Q()
@@ -82,8 +82,14 @@ let og_length = music_queue.lst.length
 
 // issue a promiuse to make a list of objects that contain the song data that's associated with the duration of the music
 new Promise(function(resolve, reject) {
+
+  // console.log('new promise');
+
   // loop through the song queue, dequeueing songs as we loop
   while (!music_queue.isempty()) {
+
+    // console.log('music q aint empty');
+
     // dequeue from the queue to derive the song tile (& sub-directory path)
     let song = music_queue.dequeue()
     // define a full path the the song data w __dirname
@@ -95,7 +101,11 @@ new Promise(function(resolve, reject) {
       // push a new song object to the list of song objects, we'll end up sending this to the client
       music_struct_lst.push(make_song_obj(song, 'artist', path_to_song, duration), 'genre')
       // if the queue is empty and the lenght of our list-builder has reached the original size of the queue, then we know we've dequeued the final song, so resolve the promise
-      if (music_queue.isempty() && music_struct_lst.length == og_length) {
+
+
+      console.log(music_struct_lst.length, og_length);
+      if (music_queue.isempty() && music_struct_lst.length == (og_length*2)) {
+        console.log('music q empty');
         resolve()
       }
     })
@@ -154,6 +164,7 @@ new Promise(function(resolve, reject) {
 
   // on connection with the client, first send them the data that represents all of the songs -> music_struct_lst
   io.on('connection', function(socket) {
+    console.log('got connection');
     // socket.emit('music_lst', music_lst)
 
     socket.emit('music_lst', current_song_data)
