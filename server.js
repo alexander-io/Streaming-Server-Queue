@@ -49,7 +49,7 @@ let music_lst = [
   'lofi/cranium_plvto.mp3',
   'lofi/532pm_theDeli.mp3',
   'lofi/iWasntEnoughForYou_BOJET.mp3',
-  'lofi/iNeedYou_BOJET.mp3'
+  'lofi/iNeedYou_BOJET.mp3',
   'lofi/gameBoyInTraffic_jaedenCamstra.mp3',
   'lofi/blackCoffee_edoLee.mp3',
   'lofi/11pm_plvto.mp3',

@@ -31,6 +31,7 @@ exports.requests = function(app, path) {
   app.get('/favicon.ico', function(req, res) {
     res.sendFile(path.join(__dirname + '/../public/favicon.ico'))
   })
+  
   //
   // app.get('/socket.io.js', function(req, res) {
   //   res.sendFile(path.join(__dirname + '/../node_modules/socket.io/lib/socket.js'))
