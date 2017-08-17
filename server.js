@@ -43,11 +43,17 @@ class Q {
 // array of path's to mp3 files
 let music_lst = [
   'lofi/idwdta.mp3',
+  'lofi/thatJustGotHomeFromWorkTypeBeat_charlieTooHuman.mp3',
   'lofi/sprng.mp3',
+  'lofi/imSorry_swell.mp3',
   'lofi/cranium_plvto.mp3',
-  // 'lofi/gameBoyInTraffic_jaedenCamstra.mp3',
-  // 'lofi/blackCoffee_edoLee.mp3',
-  'lofi/11pm_plvto.mp3'
+  'lofi/532pm_theDeli.mp3',
+  'lofi/iWasntEnoughForYou_BOJET.mp3',
+  'lofi/iNeedYou_BOJET.mp3'
+  'lofi/gameBoyInTraffic_jaedenCamstra.mp3',
+  'lofi/blackCoffee_edoLee.mp3',
+  'lofi/11pm_plvto.mp3',
+
 ]
 
 
