@@ -1,6 +1,5 @@
 let express = require('express'), path = require('path'), dependencies = require(__dirname + '/scripts/dependencies.js'), ss = require('socket.io-stream'), mp3_duration = require('mp3-duration'), fs = require('fs')
 
-
 let app = express()
 let server = require('http').Server(app)
 let io = require('socket.io')(server)
@@ -52,8 +51,8 @@ let music_lst = [
   'lofi/iNeedYou_BOJET.mp3',
   'lofi/gameBoyInTraffic_jaedenCamstra.mp3',
   'lofi/blackCoffee_edoLee.mp3',
-  'lofi/11pm_plvto.mp3'
-
+  'lofi/11pm_plvto.mp3',
+  'lofi/johnnyTsunami_plvto.mp3'
 ]
 
 // console.log('made music lst');
@@ -153,12 +152,7 @@ new Promise(function(resolve, reject) {
    }
 
 
-
    loop_music(music_struct_queue)
-
-
-
-
 
 
 

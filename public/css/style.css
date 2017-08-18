@@ -4,7 +4,7 @@ body {
 
 #title {
   color : white;
-  font-size: 128px;
+  font-size: 100px;
   margin-top: 40%;
 }
 
@@ -37,7 +37,8 @@ green a:hover {
 }
 
 #loader {
-  margin:33%;
+  /*margin:33%;*/
+  width:100%;
 }
 
 #stagger-list {
