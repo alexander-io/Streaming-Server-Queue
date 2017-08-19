@@ -76,7 +76,7 @@
 
 
             <ul id="stagger-list">
-              <li class="reveal-list" style="color:lime;"><h4 id="song-title" class="truncate">title</h4></li>
+              <li class="reveal-list" style="color:lime;"><h4 id="song-title" class="">title</h4></li>
               <li class="reveal-list"><h4 id="song-artist">artist</h4></li>
               <li class="reveal-list"><h4 id="song-genre">genre</h4></li>
               <li class="reveal-list"><h4 id="song-duration">duration</h4></li>
@@ -97,46 +97,31 @@
 
       let loader = document.getElementById('loader')
       // select headers to populate
-      let song_title = document.getElementById('song-title'), song_artist = document.getElementById('song-artist'), song_duration = document.getElementById('song-duration'), song_genre = document.getElementById('song-genre')
+      let song_title = document.getElementById('song-title'),
+        song_artist = document.getElementById('song-artist'),
+        song_duration = document.getElementById('song-duration'),
+        song_genre = document.getElementById('song-genre')
 
-
-
-
-
+      // add an eventlistener to the audio element to handle audio 'ended' event
       audio.addEventListener('ended', function(e) {
-        console.log('audio ended');
-        socket.emit('start_stream', { start : 'start' });
-      });
+        console.log('audio ended')
+        socket.emit('start_stream', { start : 'start' })
+      })
 
-      socket.on('music_lst', function (data) {
-        // socket.on('current_song_data', function(data){
-        //   console.log('currently streaming :', data);
-        //   song_title.innerHTML = data.title
-        //   song_artist.innerHTML = data.artist
-        //   song_duration.innerHTML = data.duration
-        //   song_genre.innerHTML = data.genre
-        // })
-
-
-        // console.log('currently streaming :', data);
-        // song_title.innerHTML = data.title
-        // song_artist.innerHTML = data.artist
-        // song_duration.innerHTML = data.duration
-        // song_genre.innerHTML = data.genre
-
-
-
-        socket.emit('start_stream', { start : 'start' });
-
+      socket.on('init_stream', function (data) {
+        socket.emit('start_stream', { start : 'start' })
+        // on audio-stream event...
         ss(socket).on('audio-stream', function(stream, data) {
-          console.log(data);
-          loader.className += ' active'
-          song_title.innerHTML = data.title
-          song_artist.innerHTML = data.artist
-          song_duration.innerHTML = data.duration
+          console.log(data) // log the data to console
+          loader.className += ' active' // start the loader
+          song_title.innerHTML = data.title // assign title
+          song_artist.innerHTML = data.artist // assign artist
+          song_duration.innerHTML = data.duration // assign duration
           song_genre.innerHTML = 'data.genre'
-          parts = []
 
+          let parts = []
+
+          // on data event, push the data to the parts array
           stream.on('data', (chunk) => {
             parts.push(chunk)
           })
@@ -145,21 +130,11 @@
             console.log('stream finished', parts);
             audio.src = (window.URL || window.webkidURL).createObjectURL(new Blob(parts))
             audio.play()
-
-            loader.classList.remove('active')
-
-            Materialize.showStaggeredList('#stagger-list')
-            // socket.emit('start_stream', { start : 'start' });
+            loader.classList.remove('active') // stop the loader
+            Materialize.showStaggeredList('#stagger-list') // show staggered list containing song data
           })
         })
-
-
       });
-
-      let recv_file = null
-      // ss(socket).emit('stream-file', stream)
-      // stream.pipe(fs.createReadStream(recv_file))
     </script>
-
   </body>
 </html>

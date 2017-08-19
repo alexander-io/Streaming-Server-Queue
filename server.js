@@ -161,17 +161,14 @@ new Promise(function(resolve, reject) {
     console.log('got connection');
     // socket.emit('music_lst', music_lst)
 
-    socket.emit('music_lst', current_song_data)
+    socket.emit('init_stream', current_song_data)
 
     socket.on('start_stream', function(data) {
-      // socket.emit('current_song_data', current_song_data)
-
+      // create stream
       let stream = ss.createStream()
 
       ss(socket).emit('audio-stream', stream, current_song_data)
 
-      // let filename = __dirname + '/music/lofi/idwdta.mp3'
-      // let filename = __dirname + '/music' + '/' + current_song_data.path
       let filename = current_song_data.path
 
       fs.createReadStream(filename).pipe(stream)
@@ -179,6 +176,7 @@ new Promise(function(resolve, reject) {
       stream.on('finish', function(){
         console.log('finished sending', filename);
       })
+
     })
   })
 })
