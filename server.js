@@ -106,14 +106,24 @@ new Promise(function(resolve, reject) {
             break
           }
         }
-        // console.log('in extract artist p2 :', song);
         return song
       }
 
 
+      let extract_title = function(song) {
+        // remove prepended 'lofi/'
+        song = song.substring(5,song.length)
+        song = song.substring(0, song.length-4)
+        if (!song.includes('_')){
+          return song
+        } else { return song.substring(0, song.indexOf('_')) }
+      }
+
+      console.log('extracted title :', extract_title(song))
+
 
       // push a new song object to the list of song objects, we'll end up sending this to the client
-      music_struct_lst.push(make_song_obj(song, extract_artist(song), path_to_song, duration, 'genre'))
+      music_struct_lst.push(make_song_obj(extract_title(song), extract_artist(song), path_to_song, duration, 'genre'))
 
       // if the queue is empty and the lenght of our list-builder has reached the original size of the queue, then we know we've dequeued the final song, so resolve the promise
       console.log(music_struct_lst.length, og_length);
@@ -167,7 +177,7 @@ new Promise(function(resolve, reject) {
 
      setTimeout(function(){
        loop_music(music_struct_queue)
-     }, current_song.duration * 100)
+     }, current_song.duration * 1000)
 
    }
 
