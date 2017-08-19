@@ -39,38 +39,15 @@ class Q {
     }
 }
 
-let music_lst = [
-  'lofi/11pm_plvto.mp3',
-  'lofi/humanMusic.mp3',
-  'lofi/memories.mp3',
-  'lofi/532pm_theDeli.mp3',
-  'lofi/idwdta.mp3',
-  'lofi/ocarina_tvBlonde.mp3',
-  'lofi/adoba_shogonodo.mp3',
-  'lofi/imSorry_swell.mp3',
-  'lofi/sand_tomppabeats.mp3',
-  'lofi/blackCoffee_edoLee.mp3',
-  'lofi/iNeedYou_BOJET.mp3',
-  'lofi/sprng.mp3',
-  'lofi/cranium_plvto.mp3',
-  'lofi/inLoveWithAGhostWeveNeverMetButCanWeHaveACoffeeOrSomething.mp3',
-  'lofi/thatJustGotHomeFromWorkTypeBeat_charlieTooHuman.mp3',
-  'lofi/eternalYouth_Rude.mp3',
-  'lofi/iWasntEnoughForYou_BOJET.mp3',
-  'lofi/xJhfly_squidEthics.mp3',
-  'lofi/gameBoyInTraffic_jaedenCamstra.mp3',
-  'lofi/johnnyTsunami_plvto.mp3',
-  'lofi/hemlock_dirtyArtClub.mp3',
-  'lofi/jvlery_plvto.mp3'
-]
-
-// console.log('made music lst');
+// read data in from the directory that contains the mp3 files
+let music_lst = fs.readdirSync(__dirname + '/' + 'music/lofi')
+for (x in music_lst) {music_lst[x] = 'lofi' + '/' + music_lst[x]}
 
 // define a queue to store our music
 let music_queue = new Q()
+
 // load the list into the queue
 music_queue.load(music_lst)
-
 
 let music_struct_lst = []
 
