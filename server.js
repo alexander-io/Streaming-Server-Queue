@@ -41,19 +41,29 @@ class Q {
 
 // array of path's to mp3 files
 let music_lst = [
-  'lofi/idwdta.mp3',
-  'lofi/thatJustGotHomeFromWorkTypeBeat_charlieTooHuman.mp3',
-  'lofi/sprng.mp3',
-  'lofi/imSorry_swell.mp3',
-  'lofi/cranium_plvto.mp3',
-  'lofi/532pm_theDeli.mp3',
-  'lofi/iWasntEnoughForYou_BOJET.mp3',
-  'lofi/iNeedYou_BOJET.mp3',
-  'lofi/gameBoyInTraffic_jaedenCamstra.mp3',
-  'lofi/blackCoffee_edoLee.mp3',
   'lofi/11pm_plvto.mp3',
-  'lofi/johnnyTsunami_plvto.mp3'
+  'lofi/imSorry_swell.mp3',
+  'lofi/532pm_theDeli.mp3',
+  'lofi/iNeedYou_BOJET.mp3',
+  'lofi/adoba_shogonodo.mp3',
+  'lofi/inLoveWithAGhostWeveNeverMetButCanWeHaveACoffeeOrSomething.mp3',
+  'lofi/blackCoffee_edoLee.mp3',
+  'lofi/iWasntEnoughForYou_BOJET.mp3',
+  'lofi/cranium_plvto.mp3',
+  'lofi/johnnyTsunami_plvto.mp3',
+  'lofi/eternalYouth_Rude.mp3',
+  'lofi/memories.mp3',
+  'lofi/gameBoyInTraffic_jaedenCamstra.mp3',
+  'lofi/ocarina_tvBlonde.mp3',
+  'lofi/hemlock_dirtyArtClub.mp3',
+  'lofi/sand_tomppabeats.mp3',
+  'lofi/humanMusic.mp3',
+  'lofi/sprng.mp3',
+  'lofi/idwdta.mp3',
+  'lofi/thatJustGotHomeFromWorkTypeBeat_charlieTooHuman.mp3'
 ]
+
+
 
 // console.log('made music lst');
 
@@ -97,13 +107,18 @@ new Promise(function(resolve, reject) {
     // call the mp3_dur function from the external library
     // this function takes in a path to an mp3 song and asynchronously determines the duration of the song based on the path paramater
     mp3_duration(path_to_song, function(err, duration) {
+
+      // XXX test print
+      // console.log('duration:::', duration)
+
       // push a new song object to the list of song objects, we'll end up sending this to the client
-      music_struct_lst.push(make_song_obj(song, 'artist', path_to_song, duration), 'genre')
+      music_struct_lst.push(make_song_obj(song, 'artist', path_to_song, duration, 'genre'))
+
       // if the queue is empty and the lenght of our list-builder has reached the original size of the queue, then we know we've dequeued the final song, so resolve the promise
-
-
       console.log(music_struct_lst.length, og_length);
-      if (music_queue.isempty() && music_struct_lst.length == (og_length*2)) {
+      if (music_queue.isempty() && music_struct_lst.length == og_length) {
+      // if (music_queue.isempty()) {
+
         console.log('music q empty');
         resolve()
       }
@@ -111,7 +126,7 @@ new Promise(function(resolve, reject) {
   }
 }).then(function(resolve, reject) {
   // since we're inside of this code block, that means we've already generated all of our song durations asynchronously, now we have the data available inside of the music_struct_lst array of objects
-  console.log(music_struct_lst);
+  // console.log(music_struct_lst);
 
 
   // now that we have and array of song objects, make a queue out of them
@@ -134,12 +149,16 @@ new Promise(function(resolve, reject) {
    * let's initialize the server to dequeue a new song song each time the duration of the current song elapses, do this recursively to handle
    */
    let loop_music = function(music_struct_queue) {
+
      if (music_struct_queue.lst.length == 0) {
        console.log('queue has been exhausted');
        return
      }
+
      let current_song = music_struct_queue.dequeue()
+
      console.log('dequeued new song :', current_song);
+
      set_current_song_globals(current_song)
 
      // enqueue the song back to the tail
@@ -151,7 +170,7 @@ new Promise(function(resolve, reject) {
 
    }
 
-
+   // XXX comment in
    loop_music(music_struct_queue)
 
 
