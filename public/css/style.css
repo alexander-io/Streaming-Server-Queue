@@ -1,5 +1,9 @@
 body {
   background-color: #212121;
+  background-image:url('serialexperiments.gif');
+  /*background-position: right center ;*/
+  /*backgr*/
+  background-size: cover;
 }
 
 #title {
@@ -34,6 +38,10 @@ green a:hover {
 .reveal-list{
   opacity: 0;
   color: white;
+}
+
+#song-title {
+  word-break: break-all;
 }
 
 #loader {

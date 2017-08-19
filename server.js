@@ -39,31 +39,30 @@ class Q {
     }
 }
 
-// array of path's to mp3 files
 let music_lst = [
   'lofi/11pm_plvto.mp3',
-  'lofi/imSorry_swell.mp3',
-  'lofi/532pm_theDeli.mp3',
-  'lofi/iNeedYou_BOJET.mp3',
-  'lofi/adoba_shogonodo.mp3',
-  'lofi/inLoveWithAGhostWeveNeverMetButCanWeHaveACoffeeOrSomething.mp3',
-  'lofi/blackCoffee_edoLee.mp3',
-  'lofi/iWasntEnoughForYou_BOJET.mp3',
-  'lofi/cranium_plvto.mp3',
-  'lofi/johnnyTsunami_plvto.mp3',
-  'lofi/eternalYouth_Rude.mp3',
-  'lofi/memories.mp3',
-  'lofi/gameBoyInTraffic_jaedenCamstra.mp3',
-  'lofi/ocarina_tvBlonde.mp3',
-  'lofi/hemlock_dirtyArtClub.mp3',
-  'lofi/sand_tomppabeats.mp3',
   'lofi/humanMusic.mp3',
-  'lofi/sprng.mp3',
+  'lofi/memories.mp3',
+  'lofi/532pm_theDeli.mp3',
   'lofi/idwdta.mp3',
-  'lofi/thatJustGotHomeFromWorkTypeBeat_charlieTooHuman.mp3'
+  'lofi/ocarina_tvBlonde.mp3',
+  'lofi/adoba_shogonodo.mp3',
+  'lofi/imSorry_swell.mp3',
+  'lofi/sand_tomppabeats.mp3',
+  'lofi/blackCoffee_edoLee.mp3',
+  'lofi/iNeedYou_BOJET.mp3',
+  'lofi/sprng.mp3',
+  'lofi/cranium_plvto.mp3',
+  'lofi/inLoveWithAGhostWeveNeverMetButCanWeHaveACoffeeOrSomething.mp3',
+  'lofi/thatJustGotHomeFromWorkTypeBeat_charlieTooHuman.mp3',
+  'lofi/eternalYouth_Rude.mp3',
+  'lofi/iWasntEnoughForYou_BOJET.mp3',
+  'lofi/xJhfly_squidEthics.mp3',
+  'lofi/gameBoyInTraffic_jaedenCamstra.mp3',
+  'lofi/johnnyTsunami_plvto.mp3',
+  'lofi/hemlock_dirtyArtClub.mp3',
+  'lofi/jvlery_plvto.mp3'
 ]
-
-
 
 // console.log('made music lst');
 
@@ -126,7 +125,7 @@ new Promise(function(resolve, reject) {
   }
 }).then(function(resolve, reject) {
   // since we're inside of this code block, that means we've already generated all of our song durations asynchronously, now we have the data available inside of the music_struct_lst array of objects
-  // console.log(music_struct_lst);
+  console.log(music_struct_lst);
 
 
   // now that we have and array of song objects, make a queue out of them
