@@ -1,4 +1,9 @@
-let express = require('express'), path = require('path'), dependencies = require(__dirname + '/scripts/dependencies.js'), ss = require('socket.io-stream'), mp3_duration = require('mp3-duration'), fs = require('fs')
+let express = require('express'),
+  path = require('path'),
+  fs = require('fs'),
+  ss = require('socket.io-stream'),
+  mp3_duration = require('mp3-duration'),
+  dependencies = require(__dirname + '/scripts/dependencies.js')
 
 let app = express()
 let server = require('http').Server(app)
@@ -6,7 +11,6 @@ let io = require('socket.io')(server)
 
 /*
  * globals
- *
  */
 const server_start_time = 0
 let current_song_data = {
@@ -17,7 +21,6 @@ let current_song_data = {
   path : null,
   genre : null
 }
-
 
 class Q {
     constructor () { this.lst = [] }
