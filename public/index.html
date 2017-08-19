@@ -83,7 +83,7 @@
             <ul id="stagger-list">
               <li class="reveal-list" style="color:lime;"><h4 id="song-title" class="">title</h4></li>
               <li class="reveal-list"><h4 id="song-artist">artist</h4></li>
-              <li class="reveal-list"><h4 id="song-genre">genre</h4></li>
+
               <li class="reveal-list"><h4 id="song-duration">duration</h4></li>
             </ul>
           </div>
@@ -104,8 +104,8 @@
       // select headers to populate
       let song_title = document.getElementById('song-title'),
         song_artist = document.getElementById('song-artist'),
-        song_duration = document.getElementById('song-duration'),
-        song_genre = document.getElementById('song-genre')
+        song_duration = document.getElementById('song-duration')
+        // song_genre = document.getElementById('song-genre')
 
       // add an eventlistener to the audio element to handle audio 'ended' event
       audio.addEventListener('ended', function(e) {
@@ -119,10 +119,10 @@
         ss(socket).on('audio-stream', function(stream, data) {
           console.log(data) // log the data to console
           loader.className += ' active' // start the loader
-          song_title.innerHTML = data.title // assign title
+          song_title.innerHTML = data.title.substring(5, data.title.length) // assign title
           song_artist.innerHTML = data.artist // assign artist
           song_duration.innerHTML = data.duration // assign duration
-          song_genre.innerHTML = 'data.genre'
+          // song_genre.innerHTML = 'data.genre'
 
           let parts = []
 

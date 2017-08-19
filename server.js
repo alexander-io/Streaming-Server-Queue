@@ -46,6 +46,8 @@ class Q {
 let music_lst = fs.readdirSync(__dirname + '/' + 'music/lofi')
 for (x in music_lst) {music_lst[x] = 'lofi' + '/' + music_lst[x]}
 
+console.log(music_lst);
+
 // define a queue to store our music
 let music_queue = new Q()
 
@@ -71,12 +73,8 @@ let og_length = music_queue.lst.length
 // issue a promiuse to make a list of objects that contain the song data that's associated with the duration of the music
 new Promise(function(resolve, reject) {
 
-  // console.log('new promise');
-
   // loop through the song queue, dequeueing songs as we loop
   while (!music_queue.isempty()) {
-
-    // console.log('music q aint empty');
 
     // dequeue from the queue to derive the song tile (& sub-directory path)
     let song = music_queue.dequeue()
@@ -87,11 +85,35 @@ new Promise(function(resolve, reject) {
     // this function takes in a path to an mp3 song and asynchronously determines the duration of the song based on the path paramater
     mp3_duration(path_to_song, function(err, duration) {
 
-      // XXX test print
-      // console.log('duration:::', duration)
+
+
+      let extract_artist = function(song) {
+        // remove song title & directory
+        for (let x = 0; x < song.length; x++){
+          if (song[x] == '_') {
+            song = song.substring(x+1, song.length)
+            break
+          }
+          if (x == song.length-1){
+            return 'unkown'
+          }
+        }
+
+        // remove .mp3 extension
+        for (let x = 0; x < song.length;x++){
+          if (song[x] == '.') {
+            song = song.substring(0, x)
+            break
+          }
+        }
+        // console.log('in extract artist p2 :', song);
+        return song
+      }
+
+
 
       // push a new song object to the list of song objects, we'll end up sending this to the client
-      music_struct_lst.push(make_song_obj(song, 'artist', path_to_song, duration, 'genre'))
+      music_struct_lst.push(make_song_obj(song, extract_artist(song), path_to_song, duration, 'genre'))
 
       // if the queue is empty and the lenght of our list-builder has reached the original size of the queue, then we know we've dequeued the final song, so resolve the promise
       console.log(music_struct_lst.length, og_length);
@@ -145,7 +167,7 @@ new Promise(function(resolve, reject) {
 
      setTimeout(function(){
        loop_music(music_struct_queue)
-     }, current_song.duration * 1000)
+     }, current_song.duration * 100)
 
    }
 
