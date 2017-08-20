@@ -15,6 +15,8 @@
 
     <!-- <script src="socket.io/socket.io.js "></script> -->
     <script src="socket.io-stream.js"></script>
+    <script type="text/javascript" src="two.min.js"></script>
+
 
     </script>
 
@@ -41,12 +43,17 @@
     body.style.fontFamily = font_families[r]
     </script>
 
-    <div class="section">
+    <!-- <div id="outer-maze" style="position:fixed; z-index:0;">
+      <div id="maze-mount" style="margin:auto;display:block;  ">
+
+      </div>
+    </div> -->
+    <div class="section" id="s1">
       <div class="container">
 
-        <div class="row">
+        <div class="row" style="z-index:5;">
           <div class="col s12">
-            <h1 id="title" class="center-align">plvto<green>.</green>io</h1>
+            <h1 id="title" class="center-align" style="position:relative;z-index:5;">plvto<green>.</green>io</h1>
             <audio id="audio" autoplay="autoplay">
               <source src="" type="audio/mpeg">
                 Your browser does not support the audio element.
@@ -54,17 +61,12 @@
           </div>
         </div>
 
-        <div class="" id="outer">
+        <div class="" id="outer" >
           <div class="" id="inner">
-
-            <div class="">
-              <!-- <img src="serialexperiments.gif" alt=""> -->
-            </div>
-
             <br><br>
 
             <div class="center" style="margin:auto;border 3px solid lime; padding:10px;">
-              <div id="loader"class="preloader-wrapper big " style="width:65px;">
+              <div id="loader"class="preloader-wrapper big " style="position:relative;width:65px;z-index:5;">
                 <div class="spinner-layer ">
                   <div class="circle-clipper left">
                     <div class="circle"></div>
@@ -78,9 +80,22 @@
 
             </div>
 
+            <style >
+              svg {
+                background-color: black;
+                z-index: 0;
+                position: fixed;
+                opacity: .15;
+                z-index: 0;
+                top:0px;
+              }
+            </style>
+            <script type="text/javascript" src="position.js"></script>
+            <script type="text/javascript" src="pathForger.js"></script>
+            <script type="text/javascript" src="pathFinder.js"></script>
+            <script type="text/javascript" src="maze.js"></script>
 
-
-            <ul id="stagger-list">
+            <ul id="stagger-list" style="position:relative; z-index:5;">
               <li class="reveal-list" style="color:lime;"><h4 id="song-title" class="">title</h4></li>
               <li class="reveal-list"><h4 id="song-artist">artist</h4></li>
 
@@ -97,14 +112,9 @@
       // var stream = ss.createStream()
       let audio = document.getElementById('audio')
 
-      // var socket = io.connect('http://localhost:8080', {
-      //   transports : [
-      //     'websocket',
-      //     'polling'
-      //   ]
-      // });
+      var socket = io.connect('http://localhost:8080');
 
-      var socket = io.connect('http://www.plvto.io')
+      // var socket = io.connect('http://www.plvto.io')
 
       let loader = document.getElementById('loader')
       // select headers to populate

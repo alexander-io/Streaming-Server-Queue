@@ -9,6 +9,10 @@ let app = express()
 let server = require('http').Server(app)
 let io = require('socket.io')(server)
 
+server.listen(8080, function(){
+  console.log('listening on port 8080')
+})
+
 /*
  * globals
  */
@@ -212,9 +216,6 @@ new Promise(function(resolve, reject) {
 })
 
 
-server.listen(8080, function(){
-  console.log('listening on port 8080')
-})
 
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/public/' + 'index.html')

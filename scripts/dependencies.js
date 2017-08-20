@@ -35,6 +35,28 @@ exports.requests = function(app, path) {
   app.get('/serialexperiments.gif', function(req, res) {
     res.sendFile(path.join(__dirname + '/../public/images/serialexperiments.gif'))
   })
+
+  app.get('/maze.js', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../public/js/maze.js'))
+  })
+
+  app.get('/two.min.js', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../public/js/two.min.js'))
+  })
+
+  app.get('/pathFinder.js', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../public/js/pathFinder.js'))
+  })
+
+  app.get('/pathForger.js', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../public/js/pathForger.js'))
+  })
+
+  app.get('/position.js', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../public/js/position.js'))
+  })
+
+
   //
   // app.get('/socket.io.js', function(req, res) {
   //   res.sendFile(path.join(__dirname + '/../node_modules/socket.io/lib/socket.js'))
