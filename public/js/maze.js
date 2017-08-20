@@ -28,7 +28,11 @@ let dimension = {
   s:32
 }
 
-let block_size = (two.width / 32);
+// let block_size = (two.width / 32);
+
+let block_size_width = (two.width/dimension.s)
+let block_size_height = (two.height/dimension.s)
+
 var maze, displayMaze;
 var WALL_COLOR = 'rgb(0, 0, 0)';
 
@@ -51,7 +55,7 @@ let renderMaze = function (maze) {
   for (let y = 0; y < maze.length; y++) {
     let displayRow = [];
     for (let x = 0; x < maze.length; x++) {
-      let spot = two.makeRectangle( block_size*y + (block_size/2), block_size*x + (block_size/2), block_size ,block_size);
+      let spot = two.makeRectangle( block_size_width*y + (block_size_width/2), block_size_height*x + (block_size_height/2), block_size_width ,block_size_height);
 
       if (maze[x][y] == 0) { // Wall
         spot.fill = WALL_COLOR;
