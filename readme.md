@@ -1,6 +1,6 @@
 # Audio-Streaming-Server-Queue
 ## λuthor : λ.io
-## !(plvto.io)[http://www.plvto.io]
+## [plvto.io](http://www.plvto.io)
 
 ```bash
 # linux usage
@@ -10,3 +10,4 @@ node server.js
 
 # navigate browser to http://localhost:8080
 ```
+![plvto.io](plvto.png)
