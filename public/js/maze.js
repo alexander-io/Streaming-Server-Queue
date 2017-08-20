@@ -20,7 +20,7 @@ var two = new Two({
 let col = []
 
 let dimension = {
-  s:32
+  s:64
 }
 
 let block_size_width = (two.width/dimension.s)
@@ -83,7 +83,9 @@ let renderMaze = function (maze) {
     displayMaze.push(displayRow);
   }
   displayMaze[0][0].fill = 'springgreen';
-  displayMaze[maze.length - 1][maze.length - 1].fill = 'rgb(111, 111, 111)';
+  // displayMaze[maze.length - 1][maze.length - 1].fill = 'rgb(111, 111, 111)';
+  displayMaze[maze.length - 1][maze.length - 1].fill = 'springgreen';
+
 };
 
 // Kick off the Amazing Maze

@@ -25,7 +25,7 @@ var printMaze = function () {
 // The forging algorithm will eventually find the end of the maze,
 // but it will chizzle out the rest of the large chunks of wall along the way.
 var buildMaze = function () {
-  size = 32; // Size of maze
+  size = 64; // Size of maze
 
   // Keep track of the number of walkways vs. number of walls
   // walkways = 0;
