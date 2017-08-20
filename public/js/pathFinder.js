@@ -30,6 +30,7 @@ var popCoordinate = function () {
 
 // Refreshes the maze
 var refreshMaze = function () {
+  two.clear()
   maze = buildMaze();
   renderMaze(maze);
 

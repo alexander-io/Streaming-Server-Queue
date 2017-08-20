@@ -13,12 +13,7 @@ var two = new Two({
   autostart: true,
   width:window_width,
   height:window_height,
-  // width : t_rect.width,
-  // height : t_rect.width,
-  // width : window_width/2,
-  // height : window_width/2,
   fill : 'black'
-// }).appendTo(document.getElementById('maze-mount'));
 }).appendTo(document.getElementById('body'));
 
 
@@ -28,19 +23,13 @@ let dimension = {
   s:32
 }
 
-// let block_size = (two.width / 32);
-
 let block_size_width = (two.width/dimension.s)
 let block_size_height = (two.height/dimension.s)
 
 var maze, displayMaze;
 var WALL_COLOR = '#484848';
-
-// var WALL_COLOR = '#484848'
-// var PATH_COLOR = 'lime'
 var WALK_COLOR = '#484848';
 var PATH_COLOR = 'springgreen'
-// var PATH_COLOR = 'rgb(150, 30, 190)';
 
 var setColor = function (pos, value) {
   if (value == 1) {
