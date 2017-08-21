@@ -2,23 +2,16 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="theme-color" content="lime">
     <title>socket io</title>
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="materialize.min.js"></script>
     <link rel="stylesheet" href="materialize.min.css">
-    <!-- <link href="https://fonts.googleapis.com/css?family=Lobster+Two" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaijaan|Caveat|Caveat+Brush|Chewy|Coming+Soon|Concert+One|Itim|Limelight|PT+Mono|Press+Start+2P" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
-
-    <!-- <script type="text/javascript" src="socket.io.js"></script>
-    <script type="text/javascript" src="socket.io-stream.js"> -->
-
-    <!-- <script src="socket.io/socket.io.js "></script> -->
     <script src="socket.io-stream.js"></script>
     <script type="text/javascript" src="two.min.js"></script>
-
-
-    </script>
 
 
   </head>
@@ -36,21 +29,13 @@
       "'Press Start 2P', cursive",
       "'Itim', cursive",
     ]
-
-    let r = Math.floor(Math.random()*font_families.length)
-
     let body = document.getElementById('body');
-    body.style.fontFamily = font_families[r]
+    body.style.fontFamily = font_families[Math.floor(Math.random()*font_families.length)]
     </script>
 
-    <!-- <div id="outer-maze" style="position:fixed; z-index:0;">
-      <div id="maze-mount" style="margin:auto;display:block;  ">
 
-      </div>
-    </div> -->
     <div class="section" id="s1">
       <div class="container">
-
         <div class="row" style="z-index:5;">
           <div class="col s12">
             <h1 id="title" class="center-align" style="position:relative;z-index:5;">plvto<green>.</green>io</h1>
@@ -88,6 +73,7 @@
                 opacity: .4;
                 z-index: 0;
                 top:0px;
+                /*visibility: hidden;*/
               }
             </style>
             <script type="text/javascript" src="position.js"></script>

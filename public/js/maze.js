@@ -29,7 +29,8 @@ let dimension = {
 }
 
 let block_size_width = (two.width/dimension.s)
-let block_size_height = (two.height/dimension.s)
+// let block_size_height = (two.height/dimension.s)
+let block_size_height = block_size_width
 
 var maze, displayMaze;
 var WALL_COLOR = '#484848ff';

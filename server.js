@@ -89,8 +89,6 @@ new Promise(function(resolve, reject) {
     // this function takes in a path to an mp3 song and asynchronously determines the duration of the song based on the path paramater
     mp3_duration(path_to_song, function(err, duration) {
 
-
-
       let extract_artist = function(song) {
         // remove song title & directory
         for (let x = 0; x < song.length; x++){
