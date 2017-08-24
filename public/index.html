@@ -95,6 +95,12 @@
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
+      // golbally handle error
+      // WebSocket connection to 'ws://www.plvto.io/socket.io/?EIO=3&transport=websocket&sid=B1CKtDIS20IRmkNQAAAB' failed: Error during WebSocket handshake: 'Sec-WebSocket-Accept' header is missing
+      window.onerror = function(err){
+        console.log('caught err?', err);
+      }
+
       // var stream = ss.createStream()
       let audio = document.getElementById('audio')
 
