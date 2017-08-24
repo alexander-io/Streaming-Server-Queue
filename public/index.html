@@ -13,6 +13,19 @@
     <script src="socket.io-stream.js"></script>
     <script type="text/javascript" src="two.min.js"></script>
 
+    <script type="text/javascript">
+    // golbally handle error
+    // WebSocket connection to 'ws://www.plvto.io/socket.io/?EIO=3&transport=websocket&sid=B1CKtDIS20IRmkNQAAAB' failed: Error during WebSocket handshake: 'Sec-WebSocket-Accept' header is missing
+    // window.onerror = function(){}
+
+    window.addEventListener('error', function(err){
+      let error = err.error
+      console.log('found err :', error);
+    })
+
+
+    </script>
+
 
   </head>
   <body id="body">
@@ -95,11 +108,7 @@
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
-      // golbally handle error
-      // WebSocket connection to 'ws://www.plvto.io/socket.io/?EIO=3&transport=websocket&sid=B1CKtDIS20IRmkNQAAAB' failed: Error during WebSocket handshake: 'Sec-WebSocket-Accept' header is missing
-      window.onerror = function(err){
-        console.log('caught err?', err);
-      }
+
 
       // var stream = ss.createStream()
       let audio = document.getElementById('audio')
