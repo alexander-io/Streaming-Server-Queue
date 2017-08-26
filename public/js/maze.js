@@ -13,14 +13,49 @@ let t = document.getElementById('title');
 let t_rect = t.getBoundingClientRect()
 console.log(t_rect);
 
+
+
 var two = new Two({
   fullscreen: false,
   autostart: true,
   width:window_width,
   height:window_height,
   fill : 'black'
-}).appendTo(document.getElementById('body'));
+}).appendTo(document.getElementById('body'))
 
+var rtime;
+var timeout = false;
+var delta = 50;
+$(window).resize(function() {
+    rtime = new Date();
+    if (timeout === false) {
+        timeout = true;
+        setTimeout(resizeend, delta);
+    }
+});
+
+function resizeend() {
+    if (new Date() - rtime < delta) {
+        setTimeout(resizeend, delta);
+    } else {
+        refreshMaze()
+        timeout = false;
+        // alert('Done resizing');
+    }
+}
+
+// let resizeId
+// // on window resize, update dimensions of two object & refresh maze
+// window.onresize = function(){
+//   console.log('onresize called');
+//   clearTimeout(resizeId)
+//   resizeId = setTimeout(fin_resize, 100)
+// }
+//
+// let fin_resize = function(){
+//   console.log('resize');
+//   refreshMaze()
+// }
 
 let col = []
 
@@ -28,8 +63,8 @@ let dimension = {
   s:64
 }
 
-let block_size_width = (two.width/dimension.s)
-let block_size_height = (two.height/dimension.s)
+// let block_size_width = (two.width/dimension.s)
+// let block_size_height = (two.height/dimension.s)
 // let block_size_height = block_size_width
 
 var maze, displayMaze;
@@ -48,6 +83,8 @@ var setColor = function (pos, value) {
 };
 
 let renderMaze = function (maze) {
+  let block_size_width = (two.width/dimension.s)
+  let block_size_height = (two.height/dimension.s)
   displayMaze = [];
   for (let y = 0; y < maze.length; y++) {
     let displayRow = [];
