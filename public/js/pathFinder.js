@@ -42,6 +42,8 @@ if (testExp.test(navigator.userAgent)) {
   // Refreshes the maze
   var refreshMaze = function () {
     two.clear()
+    two.width = window.innerWidth
+    two.height = window.innerHeight
     maze = buildMaze();
     renderMaze(maze);
 
